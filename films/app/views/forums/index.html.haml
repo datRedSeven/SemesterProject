@@ -1,0 +1,33 @@
+.disclaimer
+  %h1 Welcome
+
+%table
+  %thead
+    %tr
+      %th{width: "70%"} 
+      %th{width: "30%"} 
+      %th
+      %th
+      %th
+
+  %tbody
+    - @forums.each do |forum|
+      %tr
+        /%td= forum.name
+        %td
+          .p=link_to forum.name, forum_path(forum)
+          Topics: 
+          =forum.topics.count
+          .p=forum.description
+        %td
+          - if forum.most_recent_post
+            = distance_of_time_in_words_to_now forum.most_recent_post.updated_at 
+            назад
+          - else
+            no posts
+        %td= link_to 'Edit', edit_forum_path(forum)
+        %td= link_to 'Destroy', forum, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Forum', new_forum_path

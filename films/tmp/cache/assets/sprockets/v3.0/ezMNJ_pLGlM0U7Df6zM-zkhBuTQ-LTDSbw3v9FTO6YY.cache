@@ -1,0 +1,31 @@
+I"+(function() {
+  var ready;
+
+  ready = function() {
+    return $("[data-tokeninput]").each(function() {
+      var dom_id, opts, placeholder, url;
+      url = $(this).data('tokeninput');
+      dom_id = $(this).attr('id');
+      placeholder = $(this).attr('placeholder');
+      opts = {
+        theme: 'bootstrap',
+        hintText: 'Введите слово для поиска',
+        noResultsText: "Ничего не найдено",
+        searchingText: "Поиск"
+      };
+      if ($(this).data("limit")) {
+        opts['tokenLimit'] = $(this).data("limit");
+      }
+      if ($(this).data("pre")) {
+        opts['prePopulate'] = $(this).data("pre");
+      }
+      return $(this).tokenInput(url, opts);
+    });
+  };
+
+  $(document).ready(ready);
+
+  $(document).on('page:load', ready);
+
+}).call(this);
+:ET

@@ -1,0 +1,45 @@
+%p#notice= notice
+/%h1 Listing topics
+
+/%p= @forum.id
+
+%table
+  %thead
+    %tr
+      %th{width: "60%"} 
+      %th{width: "20%"} 
+      %th{width: "20%"} 
+      %th
+      %th
+      %th
+
+
+
+  %tbody
+    - @forum.topics.each do |topic|
+      %tr
+        %td= link_to topic.title, topic
+        %td
+          Created by
+          =link_to topic.user.name, topic.user
+        %td
+          Last post by
+          =link_to User.find(topic.last_user_id).name, User.find(topic.last_user_id)
+        %td= link_to 'Edit', edit_topic_path(topic)
+        %td= link_to 'Destroy', topic, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+/= link_to 'New Topic', new_topic_path(:forum_id => @forum.id)
+= link_to 'New Topic', new_topic_path(:forum_id => @forum.id)
+/= link_to 'New Topic', new_topic_path(@forum)
+/%p
+/  %b Name:
+/  = @forum.name
+/%p
+/  %b Description:
+/  = @forum.description
+
+/= link_to 'Edit', edit_forum_path(@forum)
+\|
+= link_to 'Back', forums_path

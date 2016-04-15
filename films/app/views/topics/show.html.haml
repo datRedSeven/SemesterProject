@@ -1,0 +1,37 @@
+
+/%p
+/  %b Title:
+/  = @topic.title
+/%p
+/  %b User:
+/  = @topic.user_id
+/%p
+/  %b Last user:
+/  = @topic.last_user_id
+
+/= link_to 'Edit', edit_topic_path(@topic)
+%h1 Listing posts
+
+%table
+  %thead
+    %tr
+      %th User
+      %th Post content
+      %th
+      %th
+      %th
+
+  %tbody
+    - @topic.posts.each do |post|
+      %tr
+        %td= post.user.name
+        %td= post.post_content
+        %td= link_to 'Edit', edit_post_path(post)
+        %td= link_to 'Destroy', post, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Post', new_post_path(:topic_id => @topic.id)
+\|
+/= link_to 'Back', forums_path(:forum_id => @topic.forum_id)
+= link_to 'Back', "/forums/#{@topic.forum_id}"
