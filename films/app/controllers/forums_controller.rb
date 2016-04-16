@@ -1,5 +1,6 @@
 class ForumsController < ApplicationController
   before_action :set_forum, only: [:show, :edit, :update, :destroy]
+  before_action :check_authentication, except: [:index, :show]
   
 
   # GET /forums
