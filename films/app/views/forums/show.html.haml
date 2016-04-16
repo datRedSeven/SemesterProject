@@ -25,8 +25,9 @@
         %td
           Last post by
           =link_to User.find(topic.last_user_id).name, User.find(topic.last_user_id)
-        %td= link_to 'Edit', edit_topic_path(topic)
-        %td= link_to 'Destroy', topic, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        -if @current_user == topic.user || @current_user.try(:admin?)
+          %td= link_to 'Edit', edit_topic_path(topic)
+          %td= link_to 'Destroy', topic, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 

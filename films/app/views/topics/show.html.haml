@@ -10,28 +10,41 @@
 /  = @topic.last_user_id
 
 /= link_to 'Edit', edit_topic_path(@topic)
-%h1 Listing posts
+%h1= @topic.title
+-if @topic.locked
+  %img{width: "200px"}(src="https://cdn.meme.am/instances/400x/56153946.jpg") 
+  %h2 This topic is locked.
 
 %table
   %thead
     %tr
-      %th User
-      %th Post content
+      %th{width: "20%"} 
+        =link_to @topic.user.name, @topic.user
+      %th{width: "80%"}
+        =@topic.content
       %th
+        =link_to 'Edit', edit_topic_path(@topic)
       %th
+        =link_to 'Delete', @topic, :method => :delete
       %th
+
 
   %tbody
     - @topic.posts.each do |post|
       %tr
-        %td= post.user.name
+        %td= link_to post.user.name, post.user
         %td= post.post_content
-        %td= link_to 'Edit', edit_post_path(post)
-        %td= link_to 'Destroy', post, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        -if @current_user == post.user || @current_user.try(:admin?)
+          %td= link_to 'Edit', edit_post_path(post)
+          %td= link_to 'Destroy', post, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
-= link_to 'New Post', new_post_path(:topic_id => @topic.id)
+-if @topic.locked
+  -if @current_user.try(:admin?)
+    =link_to 'New Post', new_post_path(:topic_id => @topic.id)
+-else
+  =link_to 'New Post', new_post_path(:topic_id => @topic.id)
 \|
 /= link_to 'Back', forums_path(:forum_id => @topic.forum_id)
 = link_to 'Back', "/forums/#{@topic.forum_id}"

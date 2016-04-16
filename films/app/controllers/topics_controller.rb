@@ -1,5 +1,6 @@
 class TopicsController < ApplicationController
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
+  
 
   # GET /topics
   # GET /topics.json
@@ -86,6 +87,6 @@ class TopicsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def topic_params
-      params.require(:topic).permit(:title, :user_id, :last_user_id, :content)
+      params.require(:topic).permit(:title, :user_id, :last_user_id, :content, :locked)
     end
 end

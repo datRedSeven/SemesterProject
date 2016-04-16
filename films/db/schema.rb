@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160415181513) do
+ActiveRecord::Schema.define(version: 20160416113125) do
 
   create_table "countries", force: :cascade do |t|
     t.string   "name"
@@ -84,10 +84,11 @@ ActiveRecord::Schema.define(version: 20160415181513) do
     t.string   "title"
     t.integer  "user_id"
     t.integer  "last_user_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "forum_id"
     t.text     "content"
+    t.boolean  "locked",       default: false
   end
 
   create_table "users", force: :cascade do |t|

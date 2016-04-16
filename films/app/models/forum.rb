@@ -6,6 +6,7 @@ class Forum < ActiveRecord::Base
 		topic = Topic.order("updated_at DESC").where('forum_id = ?', self.id).first
 		return topic
 	end
+	
 
 end
 
